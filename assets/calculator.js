@@ -20,42 +20,49 @@ var Calculator = React.createClass({
     return {displayedValue: '0', storedValue: '0', activeOperator: null};
   },
   handleUserInput: function(label){
-    if(!isNaN(parseFloat(label)) || label == "."){
-      // It's a number so lets just append that to the display value
-      currentValue = this.state.displayedValue == '0' ? '' : this.state.displayedValue;
-      this.setState({displayedValue: currentValue += label});
-    }else{
-      // It's not a number, so lets figure out what we need to do
-      switch(label){
-        case 'C':
-          this.setState({displayedValue: '0', storedValue: '0', activeOperator: null});
-          break;
-        case '÷':
-        case '×':
-        case '−':
-        case '+':
-          this.setState({displayedValue: '0', storedValue: this.state.displayedValue, activeOperator: label});
-          break;
-        case '=':
-          value1 = parseFloat(this.state.storedValue);
-          value2 = parseFloat(this.state.displayedValue);
-          output = value2;
-          switch(this.state.activeOperator){
-            case '÷':
-              var output = value1 / value2;
-              break;
-            case '×':
-              var output = value1 * value2;
-              break;
-            case '−':
-              var output = value1 - value2;
-              break;
-            case '+':
-              var output = value1 + value2;
-              break;
-          }
-          this.setState({displayedValue: output, storedValue: '0', activeOperator: null});
-      }
+    switch(label){
+      case 'C':
+        this.setState({displayedValue: '0', storedValue: '0', activeOperator: null});
+        break;
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '.':
+        currentValue = this.state.displayedValue == '0' ? '' : this.state.displayedValue;
+        this.setState({displayedValue: currentValue += label});
+        break;
+      case '÷':
+      case '×':
+      case '−':
+      case '+':
+        this.setState({displayedValue: '0', storedValue: this.state.displayedValue, activeOperator: label});
+        break;
+      case '=':
+        value1 = parseFloat(this.state.storedValue);
+        value2 = parseFloat(this.state.displayedValue);
+        output = value2;
+        switch(this.state.activeOperator){
+          case '÷':
+            var output = value1 / value2;
+            break;
+          case '×':
+            var output = value1 * value2;
+            break;
+          case '−':
+            var output = value1 - value2;
+            break;
+          case '+':
+            var output = value1 + value2;
+            break;
+        }
+        this.setState({displayedValue: output, storedValue: '0', activeOperator: null});
     }
   },
   render: function(){
