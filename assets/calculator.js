@@ -6,13 +6,30 @@ var CalculatorDisplay = React.createClass({
   }
 });
 
+var CalculatorButton = React.createClass({
+  render: function(){
+    return <button onClick={this.handleClick}>{this.props.value}</button>
+  }
+});
+
 var Calculator = React.createClass({
   getInitialState: function(){
     return {displayedValue: 0};
   },
   render: function(){
-    return <div className='calculator'><CalculatorDisplay value={this.state.displayedValue}/></div>;
+    var buttons = this.props.buttons.map(function(buttonValue){
+      return <CalculatorButton value={buttonValue} />;
+    });
+    return <div className='calculator'><CalculatorDisplay value={this.state.displayedValue}/><div className='buttons'>{buttons}</div></div>;
   }
 });
 
-React.renderComponent(<Calculator />, document.body);
+var buttons = [
+  "C", " ", " ", "÷",
+  "7", "8", "9", "×",
+  "4", "5", "6", "−",
+  "1", "2", "3", "+",
+  " ", "0", ".", "="
+];
+
+React.renderComponent(<Calculator buttons={buttons}/>, document.body);
