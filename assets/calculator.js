@@ -17,7 +17,7 @@ var CalculatorButton = React.createClass({
 
 var Calculator = React.createClass({
   getInitialState: function(){
-    return {displayedValue: 0, activeOperator: null};
+    return {displayedValue: '0', storedValue: '0', activeOperator: null};
   },
   handleUserInput: function(label){
     if(!isNaN(parseFloat(label))){
@@ -28,14 +28,33 @@ var Calculator = React.createClass({
       // It's not a number, so lets figure out what we need to do
       switch(label){
         case 'C':
-          this.setState({displayedValue: '0', activeOperator: null});
+          this.setState({displayedValue: '0', storedValue: '0', activeOperator: null});
           break;
         case '÷':
         case '×':
         case '−':
         case '+':
-          this.setState({activeOperator: label});
+          this.setState({displayedValue: '0', storedValue: this.state.displayedValue, activeOperator: label});
           break;
+        case '=':
+          value1 = parseFloat(this.state.storedValue);
+          value2 = parseFloat(this.state.displayedValue);
+          output = value2;
+          switch(this.state.activeOperator){
+            case '÷':
+              var output = value1 / value2;
+              break;
+            case '×':
+              var output = value1 * value2;
+              break;
+            case '−':
+              var output = value1 - value2;
+              break;
+            case '+':
+              var output = value1 + value2;
+              break;
+          }
+          this.setState({displayedValue: output, storedValue: '0', activeOperator: null});
       }
     }
   },
