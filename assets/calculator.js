@@ -11,7 +11,7 @@ var CalculatorButton = React.createClass({
     this.props.onUserInput(this.props.value);
   },
   render: function(){
-    return <button onClick={this.handleClick} className={this.props.active ? 'active' : ''}>{this.props.value}</button>
+    return <button onClick={this.handleClick} className={this.props.active ? 'active' : ''}>{this.props.value}</button>;
   }
 });
 
