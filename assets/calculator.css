@@ -41,3 +41,7 @@
   background-color: orange;
   color: #fff;
 }
+
+.calculator button.active {
+  box-shadow: inset -2px -2px 0 #fff, inset 2px 2px 0 #fff;
+}

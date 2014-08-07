@@ -11,13 +11,13 @@ var CalculatorButton = React.createClass({
     this.props.onUserInput(this.props.value);
   },
   render: function(){
-    return <button onClick={this.handleClick}>{this.props.value}</button>
+    return <button onClick={this.handleClick} className={this.props.active ? 'active' : ''}>{this.props.value}</button>
   }
 });
 
 var Calculator = React.createClass({
   getInitialState: function(){
-    return {displayedValue: 0};
+    return {displayedValue: 0, activeOperator: null};
   },
   handleUserInput: function(label){
     if(!isNaN(parseFloat(label))){
@@ -28,17 +28,22 @@ var Calculator = React.createClass({
       // It's not a number, so lets figure out what we need to do
       switch(label){
         case 'C':
-          this.setState({displayedValue: '0'});
+          this.setState({displayedValue: '0', activeOperator: null});
+          break;
+        case '÷':
+        case '×':
+        case '−':
+        case '+':
+          this.setState({activeOperator: label});
           break;
       }
     }
-
   },
   render: function(){
-    var onUserInputCallback = this.handleUserInput;
     var buttons = this.props.buttons.map(function(buttonValue){
-      return <CalculatorButton value={buttonValue} onUserInput={onUserInputCallback} />;
-    });
+      var active = this.state.activeOperator == buttonValue;
+      return <CalculatorButton value={buttonValue} onUserInput={this.handleUserInput} active={active} />;
+    }, this);
     return <div className='calculator'><CalculatorDisplay value={this.state.displayedValue}/><div className='buttons'>{buttons}</div></div>;
   }
 });
