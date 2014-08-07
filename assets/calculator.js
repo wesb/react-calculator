@@ -1,8 +1,17 @@
 /** @jsx React.DOM */
 
-var Calculator = React.createClass({
+var CalculatorDisplay = React.createClass({
   render: function(){
-    return <h1>Calculator</h1>;
+    return <div className='display'>{this.props.value}</div>;
+  }
+});
+
+var Calculator = React.createClass({
+  getInitialState: function(){
+    return {displayedValue: 0};
+  },
+  render: function(){
+    return <div className='calculator'><CalculatorDisplay value={this.state.displayedValue}/></div>;
   }
 });
 
