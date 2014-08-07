@@ -20,7 +20,7 @@ var Calculator = React.createClass({
     return {displayedValue: '0', storedValue: '0', activeOperator: null};
   },
   handleUserInput: function(label){
-    if(!isNaN(parseFloat(label))){
+    if(!isNaN(parseFloat(label)) || label == "."){
       // It's a number so lets just append that to the display value
       currentValue = this.state.displayedValue == '0' ? '' : this.state.displayedValue;
       this.setState({displayedValue: currentValue += label});
